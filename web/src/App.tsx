@@ -1,10 +1,12 @@
 import React from 'react';
 import './App.css';
 
+import Routes from './routes';
+
 function App() {
   return (
-    <div>
-      <h1>Cervisiam</h1>
+    <div id="app">
+      <Routes/>
     </div>
   );
 }
