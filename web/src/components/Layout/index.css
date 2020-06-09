@@ -1,4 +1,6 @@
 #layout {
+    position: absolute;
+    width: 100%;
+    left: 0;
     background-color: #b18b20;
-    height: 100vh;
 }
