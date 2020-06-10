@@ -14,7 +14,7 @@ const Layout = (props: Props) => {
     return (
         <div id="layout">
            <Header />
-                <Container>
+                <Container style={{ color: '#fff' }}>
                     {props.children}
                 </Container>
            <Footer />

@@ -9,7 +9,7 @@ import logo from '../../assets/logo.png';
 const Header = () => {
     return (
         <header>
-            <Navbar bg="light" expand="lg">
+            <Navbar expand="lg">
                 <Container>
                     <Navbar.Brand>
                         <Link to="/">
@@ -25,15 +25,11 @@ const Header = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
-                            <Nav.Link>
-                                <Link to="/login" className="header-link">
-                                    Login
-                                </Link>
+                            <Nav.Link as={Link} to="/login" className="header-link">
+                                Login
                             </Nav.Link>
-                            <Nav.Link>
-                                <Link to="/register" className="header-link">
-                                    Registro
-                                </Link>
+                            <Nav.Link as={Link} to="/register" className="header-link">
+                                Registro
                             </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>

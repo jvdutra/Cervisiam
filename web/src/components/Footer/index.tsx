@@ -5,7 +5,7 @@ import './style.css';
 
 const Footer = () => {
     return (
-        <footer className="footer bg-white">
+        <footer className="footer">
             <Container>
                 &copy; 2020 Cervisiam
             </Container>
