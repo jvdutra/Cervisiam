@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace server.Models
 {
@@ -12,8 +13,8 @@ namespace server.Models
 		public string email { get; set; }
 		public string senha { get; set; }
 		public string dataNascimento { get; set; }
-		public List<cupomCliente> cupons { get; set; }
 		public bool administrador { get; set; }
-		
+		public List<CupomCliente> cupons { get; set; }
+
 	}
 }

@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace server.Models
 {
-    class cupomCliente
+    public class CupomCliente
     {
-        public int usuarioId { get; set; }
-        public Usuario usuario { get; set; }
-        public int cupomId { get; set; }
-        public Cupom cupom { get; set; }
+        public int usuarioID;
+        Usuario usuario;
+        
+        public int cupomID;
+        Cupom cupons;
     }
 }

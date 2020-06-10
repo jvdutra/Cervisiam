@@ -9,7 +9,7 @@ namespace server.Models
         public String nome { get; set; }
         public double preco { get; set; }
         public String descricao { get; set; }
-        public Cupom cupom { get; set; }
-        public List<produtoEstabelecimeto> estabelecimentos { get; set; }
+        public int estabelecimentoId { get; set; }
+        public Estabelecimento estabelecimentos { get; set; }
     }
 }
