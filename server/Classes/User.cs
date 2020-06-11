@@ -15,8 +15,8 @@ namespace server.Classes
         public string cpf { get; set; }
         public string dateOfBirth { get; set; }
         public bool administrator { get; set; }
-        public Business[] businesses { get; set; }
-        public Coupon[] coupon { get; set; }
+        public List<Business> businesses { get; set; }
+        public List<CouponClient> coupons { get; set; }
 
 
 

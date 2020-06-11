@@ -9,6 +9,8 @@ namespace server.Classes
     {
         public int id { get; set; }
         public int userId { get; set; }
+        public User user { get; set; }
+        public List<Product> products { get; set; }
         public string cnpj{ get; set; }
         public string uf{ get; set; }
         public string city{ get; set; }
