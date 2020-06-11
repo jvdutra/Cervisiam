@@ -12,48 +12,48 @@ namespace server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class CouponsController : ControllerBase
     {
         private readonly DataContext _context;
 
-        public UsersController(DataContext context)
+        public CouponsController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: api/Users
+        // GET: api/Coupons
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> Getusers()
+        public async Task<ActionResult<IEnumerable<Coupon>>> Getcoupons()
         {
-            return await _context.users.ToListAsync();
+            return await _context.coupons.ToListAsync();
         }
 
-        // GET: api/Users/5
+        // GET: api/Coupons/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<Coupon>> GetCoupon(int id)
         {
-            var user = await _context.users.FindAsync(id);
+            var coupon = await _context.coupons.FindAsync(id);
 
-            if (user == null)
+            if (coupon == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return coupon;
         }
 
-        // PUT: api/Users/5
+        // PUT: api/Coupons/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutCoupon(int id, Coupon coupon)
         {
-            if (id != user.id)
+            if (id != coupon.id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(coupon).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!CouponExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace server.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        // POST: api/Coupons
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Coupon>> PostCoupon(Coupon coupon)
         {
-            _context.users.Add(user);
+            _context.coupons.Add(coupon);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.id }, user);
+            return CreatedAtAction("GetCoupon", new { id = coupon.id }, coupon);
         }
 
-        // DELETE: api/Users/5
+        // DELETE: api/Coupons/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<ActionResult<Coupon>> DeleteCoupon(int id)
         {
-            var user = await _context.users.FindAsync(id);
-            if (user == null)
+            var coupon = await _context.coupons.FindAsync(id);
+            if (coupon == null)
             {
                 return NotFound();
             }
 
-            _context.users.Remove(user);
+            _context.coupons.Remove(coupon);
             await _context.SaveChangesAsync();
 
-            return user;
+            return coupon;
         }
 
-        private bool UserExists(int id)
+        private bool CouponExists(int id)
         {
-            return _context.users.Any(e => e.id == id);
+            return _context.coupons.Any(e => e.id == id);
         }
     }
 }

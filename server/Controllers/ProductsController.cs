@@ -12,48 +12,48 @@ namespace server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         private readonly DataContext _context;
 
-        public UsersController(DataContext context)
+        public ProductsController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: api/Users
+        // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> Getusers()
+        public async Task<ActionResult<IEnumerable<Product>>> Getproducts()
         {
-            return await _context.users.ToListAsync();
+            return await _context.products.ToListAsync();
         }
 
-        // GET: api/Users/5
+        // GET: api/Products/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var user = await _context.users.FindAsync(id);
+            var product = await _context.products.FindAsync(id);
 
-            if (user == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return product;
         }
 
-        // PUT: api/Users/5
+        // PUT: api/Products/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutProduct(int id, Product product)
         {
-            if (id != user.id)
+            if (id != product.id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(product).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!ProductExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace server.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        // POST: api/Products
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Product>> PostProduct(Product product)
         {
-            _context.users.Add(user);
+            _context.products.Add(product);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.id }, user);
+            return CreatedAtAction("GetProduct", new { id = product.id }, product);
         }
 
-        // DELETE: api/Users/5
+        // DELETE: api/Products/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<ActionResult<Product>> DeleteProduct(int id)
         {
-            var user = await _context.users.FindAsync(id);
-            if (user == null)
+            var product = await _context.products.FindAsync(id);
+            if (product == null)
             {
                 return NotFound();
             }
 
-            _context.users.Remove(user);
+            _context.products.Remove(product);
             await _context.SaveChangesAsync();
 
-            return user;
+            return product;
         }
 
-        private bool UserExists(int id)
+        private bool ProductExists(int id)
         {
-            return _context.users.Any(e => e.id == id);
+            return _context.products.Any(e => e.id == id);
         }
     }
 }
