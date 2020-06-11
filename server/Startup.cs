@@ -33,7 +33,7 @@ namespace server
 					   .AllowAnyHeader();
 			}));
 			services.AddControllers();
-			services.AddDbContext<UserDbContext>();
+			services.AddDbContext<DataContext>();
 
 		}
 
