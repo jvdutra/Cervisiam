@@ -24,7 +24,7 @@ const UserRegistration = () => {
         email: '',
         password: '',
         cpf: '',
-        dob: ''
+        dateOfBirth: ''
     });
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -62,14 +62,14 @@ const UserRegistration = () => {
     async function handleFormSubmit(event: FormEvent) {
         event.preventDefault();
 
-        const { name, email, password, cpf, dob } = formData;
+        const { name, email, password, cpf, dateOfBirth } = formData;
 
         const user = {
             name,
             email,
             password,
             cpf,
-            dob
+            dateOfBirth
         }
 
         handleOpenLoadingModal();
