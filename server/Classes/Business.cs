@@ -8,6 +8,7 @@ namespace server.Classes
     public class Business
     {
         public int id { get; set; }
+        public string name{ get; set; }
         public int userId { get; set; }
         public User user { get; set; }
         public List<Product> products { get; set; }
