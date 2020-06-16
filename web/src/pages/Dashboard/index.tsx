@@ -221,7 +221,7 @@ const Dashboard = () => {
                                             Em { `${coupon.business.city}/${coupon.business.uf}` }
                                         </Card.Text>
                                         <Button variant="warning" className="mr-1">Pegar cupom</Button>
-                                        <Button variant="warning">Ver</Button>
+                                        <Button variant="warning" onClick={() => handleViewCouponInformation(coupon)}>Ver</Button>
                                     </Card.Body>
                                 </Card>
                             </Col>
