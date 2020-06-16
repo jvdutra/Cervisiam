@@ -37,6 +37,9 @@ namespace server.Migrations
                     b.Property<double>("longitude")
                         .HasColumnType("float");
 
+                    b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("uf")
                         .HasColumnType("nvarchar(max)");
 
