@@ -41,6 +41,19 @@ namespace server.Controllers
 
             return business;
         }
+             // GET: api/Businesses/5
+        [HttpGet("user/{id}")]
+        public  List<Business>  GetBusinessuser(int id)
+        {
+            var business = _context.business.Where(p=>p.userId ==id).ToList();
+
+            if (business == null)
+            {
+                return null;
+            }
+
+            return business;
+        }
 
         // PUT: api/Businesses/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for

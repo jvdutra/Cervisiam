@@ -10,6 +10,7 @@ namespace server.Classes
 
         public int id { get; set; }
         public int businessId { get; set; }
+        
         public Business business { get; set; }
         public string type { get; set; }
         public double value{ get; set; }
