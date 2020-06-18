@@ -2,7 +2,7 @@
 
 namespace server.Migrations
 {
-    public partial class GeneralMigration : Migration
+    public partial class test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,6 +30,7 @@ namespace server.Migrations
                 {
                     id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(nullable: true),
                     userId = table.Column<int>(nullable: false),
                     cnpj = table.Column<string>(nullable: true),
                     uf = table.Column<string>(nullable: true),
@@ -103,13 +104,13 @@ namespace server.Migrations
                         column: x => x.couponID,
                         principalTable: "coupons",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_couponClients_users_userID",
                         column: x => x.userID,
                         principalTable: "users",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(

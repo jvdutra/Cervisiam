@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -40,6 +41,21 @@ namespace server.Controllers
             }
 
             return user;
+        }
+        [HttpGet("coupon/{id}")]
+        public List<Coupon> GetUserCoupom(int id)
+        {
+            
+            List<Coupon> ret = new List<Coupon>();
+            var user = (from c in _context.coupons join ac in _context.couponClients on c.id equals ac.couponID where ac.userID == id select c   ).ToList();
+            return user;
+            
+        }
+
+
+        public Coupon ret_COUPON(int id)
+        {
+            return _context.coupons.Find(id);
         }
 
         // PUT: api/Users/5

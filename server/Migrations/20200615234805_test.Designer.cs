@@ -9,8 +9,8 @@ using server.Context;
 namespace server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200611010925_GeneralMigration")]
-    partial class GeneralMigration
+    [Migration("20200615234805_test")]
+    partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,6 +38,9 @@ namespace server.Migrations
 
                     b.Property<double>("longitude")
                         .HasColumnType("float");
+
+                    b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("uf")
                         .HasColumnType("nvarchar(max)");
@@ -143,6 +146,7 @@ namespace server.Migrations
                         .WithMany("businesses")
                         .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        
                         .IsRequired();
                 });
 
@@ -167,7 +171,7 @@ namespace server.Migrations
                         .WithMany("coupons")
                         .HasForeignKey("userID")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                       .IsRequired();
                 });
 
             modelBuilder.Entity("server.Classes.Product", b =>

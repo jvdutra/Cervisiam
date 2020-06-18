@@ -1,60 +1,62 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.Classes;
 using server.Context;
 
+
+
+
+
+
+
 namespace server.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class CouponsController : ControllerBase
     {
+
+
+        
+        
+
+
+
+
         private readonly DataContext _context;
 
         public CouponsController(DataContext context)
         {
+            
             _context = context;
         }
 
         // GET: api/Coupons
         [HttpGet]
-        public  List<string> Getcoupons()
+        public  List<Coupon> Getcoupons()
         {
-            List<string> ret_json= new List<string>();
-            DataContext RetContext = _context;
-            foreach (var a in _context.coupons.ToList())
-            {
-                var retorno = RetContext.business.Where(p => p.id == a.businessId).ToList();
-
-                string texto = "[coupon:{" +
-
-                    "id:" + a.id + "," +
-                    "businessId:" + a.businessId + "," +
-                    "type:" + a.type + "," +
-                    "value:" + a.value + " }";
-                foreach (var b in retorno)
-                {
-                    texto += ",business:{ id:" + b.id + ",name:" + b.name + ",uf:" + b.uf + ",city:" + b.city + ",latitude:" + b.latitude + ",longitude:" + b.longitude + "}";
-                }
-
-
-
-                texto += "]";
-                ret_json.Add(texto);
-
-            }
-            return  ret_json;
+            List<Coupon> ret = new List<Coupon>();
+            var coupon = _context.coupons.ToList();
             
+            foreach(var a in coupon)
+            {
+                a.business = _context.business.Find(a.businessId);
+                ret.Add(a);
+            }
+            return ret;
         }
 
         // GET: api/Coupons/5
         [HttpGet("{id}")]
-        public  string GetCoupon(int id)
+        public Coupon GetCoupon(int id)
         {
             
             var coupon =  _context.coupons.Find(id);
@@ -65,20 +67,14 @@ namespace server.Controllers
             }
             else
             {
-                string texto = "[coupon:{" +
+                List<Coupon> ret = new List<Coupon>();
+                
 
-                    "id:" + coupon.id + "," +
-                    "businessId:" + coupon.businessId + "," +
-                    "type:" + coupon.type + "," +
-                    "value:" + coupon.value + " }";
-                DataContext RetContext = _context;
-                foreach( var b in RetContext.business.Where(p=>p.id == coupon.businessId))
-                {
-                    texto += ",business:{ id:" + b.id + ",name:" + b.name + ",uf:" + b.uf + ",city:" + b.city + ",latitude:" + b.latitude + ",longitude:" + b.longitude + "}";
-                }
-                texto += "]";
-
-                return texto;
+                
+                    coupon.business = _context.business.Find(coupon.businessId);
+                    
+                
+                return coupon;
             }
         }
 
