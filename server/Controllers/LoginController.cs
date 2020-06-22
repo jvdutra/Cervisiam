@@ -22,6 +22,7 @@ namespace server.Controllers
 
         public class Message
         {
+            public int userId { get; set; }
             public bool success { get; set; }
             public String message { get; set; }
         }
@@ -31,6 +32,7 @@ namespace server.Controllers
         {
             Message message = new Message();
             bool success = false;
+            int userId = -1;
             String text = "INCORRECT_LOGIN";
             try
             {
@@ -40,6 +42,7 @@ namespace server.Controllers
                                         .FirstOrDefault();
                 if (user_session != null)
                 {
+                    userId = user_session.id;
                     success = true;
                     text = "SUCCESS";
                 }
@@ -49,6 +52,7 @@ namespace server.Controllers
                 text = "SERVER_ERROR";
             }
 
+            message.userId = userId;
             message.message = text;
             message.success = success;
 
@@ -69,7 +73,7 @@ namespace server.Controllers
                 if (user_session != null)
                 {
                     success = false;
-                    text = "EMAIL_EXISTENT";
+                    text = "USER_EXISTS";
                 }
             }
             catch
