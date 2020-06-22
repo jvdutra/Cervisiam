@@ -60,7 +60,7 @@ namespace server.Controllers
         {
             Message message = new Message();
             bool success = true;
-            String text = "Successfull";
+            String text = "SUCCESS";
             try
             {
                 var user_session = _context.users
@@ -69,12 +69,12 @@ namespace server.Controllers
                 if (user_session != null)
                 {
                     success = false;
-                    text = "The email is already being used";
+                    text = "EMAIL_EXISTENT";
                 }
             }
             catch
             {
-                text = "server is not working";
+                text = "SERVER_ERROR";
             }
 
             message.message = text;
