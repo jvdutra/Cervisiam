@@ -54,5 +54,35 @@ namespace server.Controllers
 
             return message;
         }
+
+        [HttpGet("email")]
+        public Message checkEmail(User user)
+        {
+            Message message = new Message();
+            bool success = true;
+            String text = "Successfull";
+            try
+            {
+                var user_session = _context.users
+                                        .Where(e => e.email == user.email)
+                                        .FirstOrDefault();
+                if (user_session != null)
+                {
+                    success = false;
+                    text = "The email is already being used";
+                }
+            }
+            catch
+            {
+                text = "server is not working";
+            }
+
+            message.message = text;
+            message.success = success;
+
+
+            return message;
+        }
+
     }
 }
