@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,36 +24,53 @@ namespace server.Controllers
 
         // GET: api/Businesses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Business>>> Getbusiness()
+        public List<Business>  Getbusiness()
         {
-            return await _context.business.ToListAsync();
-        }
+            List<Business> ret = new List<Business>();
+            var business = _context.business.ToList();
 
-        // GET: api/Businesses/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Business>> GetBusiness(int id)
-        {
-            var business = await _context.business.FindAsync(id);
 
-            if (business == null)
+            foreach (var a in business)
             {
-                return NotFound();
+                a.coupons = _context.coupons.Where(p => p.businessId == a.id).ToList();
+                
+                ret.Add(a);
             }
 
-            return business;
-        }
-             // GET: api/Businesses/5
-        [HttpGet("user/{id}")]
-        public  List<Business>  GetBusinessuser(int id)
-        {
-            var business = _context.business.Where(p=>p.userId ==id).ToList();
 
             if (business == null)
             {
                 return null;
             }
 
-            return business;
+            return ret;
+        }
+
+        // GET: api/Businesses/5
+     // GET: api/Businesses/5
+        [HttpGet("{id}")]
+        public  List<Business>  GetBusinessuser(int id)
+        {
+            
+
+
+            List<Business> ret = new List<Business>();
+            var business = _context.business.Where(p=>p.userId ==id).ToList();
+           
+
+            foreach(var a in business)
+            {
+                a.coupons = _context.coupons.Where(p => p.businessId == a.id).ToList();
+                ret.Add(a);
+            }
+
+
+            if (business == null)
+            {
+                return null;
+            }
+
+            return ret;
         }
 
         // PUT: api/Businesses/5

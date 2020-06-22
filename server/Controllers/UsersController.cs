@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments;
 using server.Classes;
 using server.Context;
 
@@ -31,32 +32,33 @@ namespace server.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public List<object> GetUser(int id)
         {
-            var user = await _context.users.FindAsync(id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return user;
-        }
-        [HttpGet("coupon/{id}")]
-        public List<Coupon> GetUserCoupom(int id)
-        {
+            var cupon= (from c in _context.coupons join ac in _context.couponClients on c.id equals ac.couponID  where ac.userID == id select c).ToList();
+            //var user = (from u in _context.users where u.id == id select u).ToList();
             
-            List<Coupon> ret = new List<Coupon>();
-            var user = (from c in _context.coupons join ac in _context.couponClients on c.id equals ac.couponID where ac.userID == id select c   ).ToList();
-            return user;
             
-        }
+                var business = (from b in _context.business join u in _context.users on b.userId equals u.id where b.userId == id select b).ToList();
+            var user = (from u in _context.users where u.id == id select u).ToList();
+            
+            
+
+            
+            
+            List<object>ret = new List<object>();
+            ret.Add(user);
+            ret.Add(business);
+            ret.Add(cupon);
+            
+            
 
 
-        public Coupon ret_COUPON(int id)
-        {
-            return _context.coupons.Find(id);
+            return ret;
         }
+       
+
+
+      
 
         // PUT: api/Users/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
