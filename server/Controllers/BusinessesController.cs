@@ -49,20 +49,20 @@ namespace server.Controllers
         // GET: api/Businesses/5
      // GET: api/Businesses/5
         [HttpGet("{id}")]
-        public  List<Business>  GetBusinessuser(int id)
+        public  Business  GetBusiness(int id)
         {
             
 
 
-            List<Business> ret = new List<Business>();
-            var business = _context.business.Where(p=>p.userId ==id).ToList();
+            
+            var business = _context.business.Where(p=>p.id ==id).First();
            
 
-            foreach(var a in business)
-            {
-                a.coupons = _context.coupons.Where(p => p.businessId == a.id).ToList();
-                ret.Add(a);
-            }
+            
+            
+                business.coupons = _context.coupons.Where(p => p.businessId == business.id).ToList();
+                
+        
 
 
             if (business == null)
@@ -70,7 +70,22 @@ namespace server.Controllers
                 return null;
             }
 
-            return ret;
+            return business;
+        }    [HttpGet("user/{id}")]
+        public  List<Business>  GetBusinessuser(int id)
+        {
+            
+
+
+            
+            var business = _context.business.Where(p=>p.userId ==id).ToList();
+            foreach( var a in business)
+            {
+                a.coupons = _context.coupons.Where(p => p.businessId == a.id).ToList();
+            }
+           
+
+            return business;
         }
 
         // PUT: api/Businesses/5
