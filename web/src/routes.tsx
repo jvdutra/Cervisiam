@@ -5,7 +5,6 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import UserRegistration from './pages/UserRegistration';
 import UserLogin from './pages/UserLogin';
-import CouponRegistration from './pages/CouponRegistration';
 import BusinessRegistration from './pages/BusinessRegistration';
 
 const Routes = () => {
@@ -15,7 +14,6 @@ const Routes = () => {
             <Route component={Dashboard} path="/dashboard"/>
             <Route component={UserRegistration} path="/register"/>
             <Route component={UserLogin} path="/login"/>
-            <Route component={CouponRegistration} path="/new-coupon"/>
             <Route component={BusinessRegistration} path="/new-business"/>
             <Redirect to="/" />
         </BrowserRouter>

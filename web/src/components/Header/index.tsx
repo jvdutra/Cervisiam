@@ -25,6 +25,9 @@ const Header = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
+                            <Nav.Link as={Link} to="/new-business" className="header-link">
+                                Meus estabelecimentos
+                            </Nav.Link>
                             <Nav.Link as={Link} to="/dashboard" className="header-link">
                                 Explorar cupons
                             </Nav.Link>
@@ -33,6 +36,9 @@ const Header = () => {
                             </Nav.Link>
                             <Nav.Link as={Link} to="/register" className="header-link">
                                 Registro
+                            </Nav.Link>
+                            <Nav.Link as={Link} to="/" className="header-link">
+                                Sair
                             </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>

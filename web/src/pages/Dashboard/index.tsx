@@ -113,21 +113,7 @@ const myCoupons: Coupon[] = [
 const Dashboard = () => {
     const [infoModalShow, setInfoModalShow] = useState(false);
 
-    const [selectedCoupon, setSelectedCoupon] = useState({
-        coupon: {
-            id: 0,
-            type: '',
-            value: 0
-        },
-        business: {
-            id: 0,
-            name: '',
-            uf: '',
-            city: '',
-            latitude: 0,
-            longitude: 0
-        }
-    });
+    const [selectedCoupon, setSelectedCoupon] = useState<Coupon>();
 
     function handleViewCouponInformation(coupon: Coupon) {
         setSelectedCoupon(coupon);
@@ -143,27 +129,30 @@ const Dashboard = () => {
             <Layout>
                 <Modal centered show={infoModalShow} onHide={handleCloseInfoModal}>
                     <Modal.Header>
-                        <Modal.Title>Cupom para {selectedCoupon.business.name}</Modal.Title>
+                        <Modal.Title>Cupom para {selectedCoupon?.business.name}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Map center={[selectedCoupon.business.latitude, selectedCoupon.business.longitude]} zoom={14}>
+                        <Map 
+                        style={{ height: "350px" }} 
+                        center={[Number(selectedCoupon?.business.latitude), Number(selectedCoupon?.business.longitude)]} 
+                        zoom={14}>
                             <TileLayer
                                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a>'
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             />
-                            <Marker position={[selectedCoupon.business.latitude, selectedCoupon.business.longitude]} />
+                            <Marker position={[Number(selectedCoupon?.business.latitude), Number(selectedCoupon?.business.longitude)]} />
                         </Map>
 
                         <p>
                             <strong>Localização:</strong><br></br>
-                            { `${selectedCoupon.business.city}/${selectedCoupon.business.uf}` }
+                            { `${selectedCoupon?.business.city}/${selectedCoupon?.business.uf}` }
                         </p>
                         <p>
                             <strong>Cupom:</strong><br></br>
                             { 
-                                selectedCoupon.coupon.type === 'DISCOUNT' ?
-                                `R$ ${selectedCoupon.coupon.value}` :
-                                `${selectedCoupon.coupon.value}% OFF`
+                                selectedCoupon?.coupon.type === 'DISCOUNT' ?
+                                `R$ ${selectedCoupon?.coupon.value}` :
+                                `${selectedCoupon?.coupon.value}% OFF`
                             }
                         </p>
                     </Modal.Body>
