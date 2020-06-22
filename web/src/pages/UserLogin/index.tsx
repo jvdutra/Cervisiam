@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import Layout from '../../components/Layout';
 import api from '../../services/api';
+import util from '../../services/util';
 
 import  './styles.css';
 
@@ -68,7 +69,25 @@ const UserLogin = () => {
 
         handleOpenLoadingModal();
 
-        // JWT communication to login
+        await api.post('/login', user)
+        .then((res) => {
+            handleCloseLoadingModal();
+
+            if(!res.data.success) {
+                return handleOpenModal('Erro ao efetuar o login!', util.getMessageByCode(res.data.message));
+            }
+
+            handleOpenModal('Logado com sucesso!', 'Redirecionando...');
+
+            setTimeout(() => {
+                handleCloseModal();
+                history.push('/dashboard');
+            }, 2000);
+        }).catch(err => {
+            handleCloseLoadingModal();
+
+            handleOpenModal('Erro ao efetuar o login!', 'Um erro desconhecido aconteceu ao efetuar seu login. Por favor, tente novamente.');
+        });
     }
 
     return (

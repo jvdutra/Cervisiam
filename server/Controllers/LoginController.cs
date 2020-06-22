@@ -31,7 +31,7 @@ namespace server.Controllers
         {
             Message message = new Message();
             bool success = false;
-            String text = "incorrect login or password";
+            String text = "INCORRECT_LOGIN";
             try
             {
                 var user_session = _context.users
@@ -41,12 +41,12 @@ namespace server.Controllers
                 if (user_session != null)
                 {
                     success = true;
-                    text = "successful";
+                    text = "SUCCESS";
                 }
             }
             catch
             {
-                text = "server is not working";
+                text = "SERVER_ERROR";
             }
 
             message.message = text;
