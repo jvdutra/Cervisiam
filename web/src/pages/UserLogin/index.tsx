@@ -1,14 +1,17 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Form, Button, Modal, Spinner } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import Layout from '../../components/Layout';
 import api from '../../services/api';
 import util from '../../services/util';
+import AuthApi from '../../services/auth';
 
 import  './styles.css';
 
 const UserLogin = () => {
+    const Auth = React.useContext(AuthApi);
     const history = useHistory();
 
     const [modalShow, setModalShow] = useState(false);
@@ -70,19 +73,37 @@ const UserLogin = () => {
         handleOpenLoadingModal();
 
         await api.post('/login', user)
-        .then((res) => {
-            handleCloseLoadingModal();
-
+        .then(async (res) => {
             if(!res.data.success) {
+                handleCloseLoadingModal();
                 return handleOpenModal('Erro ao efetuar o login!', util.getMessageByCode(res.data.message));
             }
 
-            handleOpenModal('Logado com sucesso!', 'Redirecionando...');
+            const userId = res.data.userId;
 
-            setTimeout(() => {
-                handleCloseModal();
-                history.push('/dashboard');
-            }, 2000);
+            await api.get(`/users/${userId}`)
+            .then(async (res) => {
+                const user = res.data;
+
+                handleCloseLoadingModal();
+
+                handleOpenModal('Logado com sucesso!', 'Redirecionando...');
+    
+                Auth.setAuth({
+                    logged: true,
+                    user: {
+                        id: user.id
+                    }
+                });
+
+                Cookies.set('USER_ID', user.id);
+                Cookies.set('SESSION', 'c3ccb814226d1aea174b6a68c1a98b45');
+    
+                setTimeout(() => {
+                    handleCloseModal();
+                    history.push('/dashboard');
+                }, 2000);
+            });
         }).catch(err => {
             handleCloseLoadingModal();
 
