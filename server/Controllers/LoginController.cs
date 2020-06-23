@@ -12,7 +12,7 @@ namespace server.Controllers
     [ApiController]
     public class LoginController
     {
- 
+
         private readonly DataContext _context;
 
         public LoginController(DataContext context)
@@ -58,35 +58,5 @@ namespace server.Controllers
 
             return message;
         }
-
-        [HttpGet("email")]
-        public Message checkEmail(User user)
-        {
-            Message message = new Message();
-            bool success = true;
-            String text = "SUCCESS";
-            try
-            {
-                var user_session = _context.users
-                                        .Where(e => e.email == user.email)
-                                        .FirstOrDefault();
-                if (user_session != null)
-                {
-                    success = false;
-                    text = "USER_EXISTS";
-                }
-            }
-            catch
-            {
-                text = "SERVER_ERROR";
-            }
-
-            message.message = text;
-            message.success = success;
-
-
-            return message;
-        }
-
     }
 }

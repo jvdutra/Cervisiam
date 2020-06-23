@@ -12,6 +12,13 @@ using server.Context;
 
 namespace server.Controllers
 {
+    public class Message
+    {
+        public int userId { get; set; }
+        public bool success { get; set; }
+        public String message { get; set; }
+    }
+
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -96,12 +103,49 @@ namespace server.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public Message PostUser(User user)
         {
-            _context.users.Add(user);
-            await _context.SaveChangesAsync();
+            Message message = new Message();
 
-            return CreatedAtAction("GetUser", new { id = user.id }, user);
+            try
+            {
+                var user_email_exist = _context.users
+                                     .Where(e => e.email == user.email)
+                                     .FirstOrDefault();
+
+                if (user_email_exist != null)
+                {
+                    message.success = false;
+                    message.message = "USER_EXISTS";
+
+                    return message;
+                }
+            }
+            catch
+            {
+                message.success = false;
+                message.message = "SERVER_ERROR";
+
+                return message;
+            }
+
+            try
+            {
+                _context.users.Add(user);
+                _context.SaveChanges();
+            }
+            catch
+            {
+                message.success = false;
+                message.message = "SERVER_ERROR";
+
+                return message;
+            }
+
+            message.success = true;
+            message.message = "REGISTRATION_SUCCESS";
+
+            return message;
         }
 
         // DELETE: api/Users/5
