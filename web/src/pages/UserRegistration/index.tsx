@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import Layout from '../../components/Layout';
 import api from '../../services/api';
+import util from '../../services/util';
 
 import  './styles.css';
 
@@ -75,7 +76,12 @@ const UserRegistration = () => {
         handleOpenLoadingModal();
 
         await api.post('/users', user)
-        .then(() => {
+        .then(res => {
+            if(!res.data.success) {
+                handleCloseLoadingModal();
+                return handleOpenModal('Erro ao cadastrar!', util.getMessageByCode(res.data.message));
+            }
+
             handleCloseLoadingModal();
 
             handleOpenModal('Cadastrado com sucesso!', 'Agora entre em sua conta utilizando seu e-mail e senha.');
