@@ -32,28 +32,27 @@ namespace server.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public List<object> GetUser(int id)
+        public User GetUser(int id)
         {
-            var cupon= (from c in _context.coupons join ac in _context.couponClients on c.id equals ac.couponID  where ac.userID == id select c).ToList();
-            //var user = (from u in _context.users where u.id == id select u).ToList();
+           
+           
             
             
-                var business = (from b in _context.business join u in _context.users on b.userId equals u.id where b.userId == id select b).ToList();
-            var user = (from u in _context.users where u.id == id select u).ToList();
-            
-            
-
-            
-            
-            List<object>ret = new List<object>();
-            ret.Add(user);
-            ret.Add(business);
-            ret.Add(cupon);
+           
+            var user = (from u in _context.users where u.id == id select u).First();
             
             
 
+            
+            
+            
+            
+           
+            
+            
 
-            return ret;
+
+            return user;
         }
        
 
