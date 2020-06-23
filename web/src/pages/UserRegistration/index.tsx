@@ -133,7 +133,7 @@ const UserRegistration = () => {
 
                         <Form.Group>
                             <Form.Label>Data de nascimento</Form.Label>
-                            <Form.Control type="date" name="dob" placeholder="01/01/1990" required onChange={handleInputChange} value={formData.dateOfBirth} />
+                            <Form.Control type="date" name="dateOfBirth" placeholder="01/01/1990" required onChange={handleInputChange} value={formData.dateOfBirth} />
                         </Form.Group>
 
                         <Button variant="outline-light" size="lg" block type="submit" onClick={handleFormSubmit}>
