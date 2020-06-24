@@ -15,7 +15,6 @@ namespace server.Classes
         [JsonIgnore]
         public User user { get; set; }
         [JsonIgnore]
-        public List<Product> products { get; set; }
         public string cnpj{ get; set; }
         public string uf{ get; set; }
         public string city{ get; set; }
