@@ -12,7 +12,6 @@ namespace server.Context
         public DbSet<User> users { get; set; }
         public DbSet<Business> business { get; set; }
         public DbSet<Coupon> coupons { get; set; }
-        public DbSet<Product> products { get; set; }
         public DbSet<CouponClient> couponClients { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
