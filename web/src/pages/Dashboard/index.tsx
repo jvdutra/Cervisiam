@@ -98,7 +98,9 @@ const Dashboard = () => {
                     </Modal.Body>
                 </Modal>
 
-                <h1>Cupons disponíveis</h1>
+                <div className="mt-2">
+                    <h1>Cupons disponíveis</h1>
+                </div>
                 <div className="separator mb-3"></div>
                 <div className="coupons-content mb-3">
                     <Row>
