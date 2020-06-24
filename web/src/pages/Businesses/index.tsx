@@ -381,11 +381,9 @@ const Businesses = () => {
                                 </Col>
                             ))
                         :
-                            <Row>
-                                <Col>
-                                    Não há empresas registradas em sua conta.
-                                </Col>
-                            </Row>
+                            <Col className="text-white">
+                                Não há empresas registradas em sua conta.
+                            </Col>
                         }
                     </Row>
                 </div>
