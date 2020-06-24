@@ -1,3 +1,5 @@
 .business-content {
     color: #000;
 }
+
+.leaflet-container { height: 350px; width: 100%; }
